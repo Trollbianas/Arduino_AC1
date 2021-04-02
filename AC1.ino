@@ -5,11 +5,13 @@ const int azul = 7;
 
 bool estadoLedVermelho = false;
 
+//iniciação  das constantes 1  e 2
 const int botao1 = 2;
 const int botao2 = 3;
 unsigned long lastDebounceTime1 = 0;
 const int botaoDelay = 100;
 
+//inicializaç do setup
 void setup()
 {
   pinMode(A0, INPUT);
@@ -26,6 +28,7 @@ void setup()
   Serial.println("Grupo: TROLLBIANAS");
 }
 
+// determinando o loop
 void loop()
 {
   if((millis() - lastDebounceTime1) > botaoDelay && digitalRead(botao1)){
@@ -33,13 +36,12 @@ void loop()
     ledVermelho(true);
   	lastDebounceTime1 = millis();
   }
-  
+// regra do botão 2
  if((millis() - lastDebounceTime1) > botaoDelay && digitalRead(botao2)){
 	Serial.Sprintln("final prod");
     ledVermelho(false);
-	 lastDebounceTime2 = millis();
- }
-	
+	 lastDebounceTime2 = millis();fo
+		 
   //verificador de tempetura
   if(getTemperatura() > 15){
     ledAzul(true);
@@ -48,7 +50,7 @@ void loop()
   	ledAzul(false); 
        Serial.Sprintln("temperatura planejada");
   }
-	
+// regra de decisão do led verde
   if(getLuminosidade() > 5){
         ledVerde(true);
        Serial.Sprintln("luminosidade além do planejado");
@@ -59,17 +61,16 @@ void loop()
   
   delay(10);
 }
-
+//definiçáo do estado do led
 void ledVermelho(bool estado){
   digitalWrite(vermelho,estado);
 }
 void ledVerde(bool estado){
   digitalWrite(verde,estado);
 }
-void ledAzul(bool estado){
- digitalWrite(azul,estado);
+void ledAzul(bool estado)
 }
-
+//calculo de temperaturo
 int getTemperatura(){
   	int temperaturaC;
 	temperaturaC = map(((analogRead(A0) - 20) * 3.04), 0, 1023, -40, 125);
